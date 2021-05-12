@@ -165,21 +165,22 @@ Typy:
 
 - NESTED - jesli jest aktywna to tworzymy savepoint. Jesli poleci exception w logice to robi rollback do danego miejsca. Jesli nie ma to działą jak REQUIRED.
 
-  Hibernate ma dwa poziomy cache:
 
-  1. Sposób na zbyt częste uderzanie do bazy danych
+Hibernate ma dwa poziomy cache:
+
+1. Sposób na zbyt częste uderzanie do bazy danych
 
      Zawsze włączony, nie da się go wyłączyć. Dzięki niemu obiekty nie muszą być za każdym razem ściągane z bazy. Sesja przechowuje wyciągane obiekty i nie wysyła SQL do bazy, jeśli obiekt jest już obecny. Po zakończeniu sesji wszystkie obiekty są kasowane.
 
-  2. Cache obiektów pomiędzy sesjami
+2. Cache obiektów pomiędzy sesjami
 
      Działa na poziomie SessionFactory, dlatego ten poziom jest wspólny dla wszystkich stworzonych sesji. Jeśli jest włączony to odpowiada za dostarczanie obiektów do L1. Wymaga dodatkowej konfiguracji oraz biblioteki zajmującej się implementacją L2.
 
-     Obiekty w Hibernate mogą posiadać 3 stany:
+Obiekty w Hibernate mogą posiadać 3 stany:
 
-     * transient - obiekt nie jest powiazany z sesja hibernate i nie reprezentuje wiersza w bazie. GC go zje jeśli nic innego do niego nie uderzy. Trzeba użyć save() lub persist().
-     * persistent - powiązany z sesją hibernate'a. Reprezentuje wiersz w bazie, posiada ID.
-     * detached - obiekt usunięty z sesji. Posiada ID ale nie można wykonywać na nim żadnych operacji bazodanowych - w przypadku zmian w takim obiekcie nie zostaną one zapisane w bazie danych.
+* transient - obiekt nie jest powiazany z sesja hibernate i nie reprezentuje wiersza w bazie. GC go zje jeśli nic innego do niego nie uderzy. Trzeba użyć save() lub persist().
+* persistent - powiązany z sesją hibernate'a. Reprezentuje wiersz w bazie, posiada ID.
+* detached - obiekt usunięty z sesji. Posiada ID ale nie można wykonywać na nim żadnych operacji bazodanowych - w przypadku zmian w takim obiekcie nie zostaną one zapisane w bazie danych.
 
 
 ## SQL
@@ -187,6 +188,7 @@ Typy:
 - View - wirtualne widoki które za każdym razem wykonują zapytanie.
 - Materialized view - zapisane na dysku i aktualizowane co jakiś czas, dostęp nie wymaga wykonania zapytania.
 - Różnica między HAVING, a WHERE - HAVING przy zagregowanych danych (np sumy) + używa się go z GRUOP BY
+- Kiedy baza nie używa indeksu, mimo, że jest poprawnie założony? - W momencie, gdy jest mało danych.
 
 
 ## CQRS ## 
@@ -206,7 +208,7 @@ W skrócie kolejka, składa się z:
 
 - consumer (np inna apka)
 
-  4 rodzaje exchange'y:
+4 rodzaje exchange'y:
 
 - direct - message trafia bezpośrednio na kolejkę, której key jest ustawiony
 
@@ -292,6 +294,7 @@ Kody i przykłady:
 
 ## ONION ARCHITECTURE
 Architektura tworzenia systemu, która gwarantuje:
+
 - niezależność od frameworka / bibliotek 
 
 - testowalność z wykluczeniem bazy danych i UI
@@ -302,7 +305,8 @@ Architektura tworzenia systemu, która gwarantuje:
 
 - odseparowanie modelu biznesowego
 
-  Składa się z 4 warstw (licząc od zewnętrznej):
+Składa się z 4 warstw (licząc od zewnętrznej):
+
 1. Frameworki i sterowniki
 
 2. Adaptery interfejsu
@@ -311,7 +315,7 @@ Architektura tworzenia systemu, która gwarantuje:
 
 4. Warstwa entities
 
-  Dzięki OA zapewniona jest IoC
+Dzięki OA zapewniona jest IoC
 
 
 ## IoC i DI
@@ -348,11 +352,11 @@ Główne sposoby autentykacji:
 	
 2. API Keys
 
-  Autentykacja poprzez użycie klucza dostępu, którego możemy np wrzucić w header, w basic authu, w body itd.
+    Autentykacja poprzez użycie klucza dostępu, którego możemy np wrzucić w header, w basic authu, w body itd.
 
 3. OAuth 2.0
 
-  Najczęściej do autentykacji osób, które logują się do systemu. Wymaga access tokenu lub/i refresh tokenu. Access token może wygasnąć. 
+    Najczęściej do autentykacji osób, które logują się do systemu. Wymaga access tokenu lub/i refresh tokenu. Access token może wygasnąć. 
 
 
 ## JWT
@@ -370,9 +374,9 @@ Od dołu:
 
 
 ## SWAGGER
-Pozwala wygenerować dokumentację API na podstawie kodu.
+- Pozwala wygenerować dokumentację API na podstawie kodu.
 
-Przyspiesza tworzenie dokumentacji oraz prace w różnych zespołach pracujących nad jednym produktem.
+- Przyspiesza tworzenie dokumentacji oraz prace w różnych zespołach pracujących nad jednym produktem.
 
 
 ## JDK
@@ -411,11 +415,11 @@ Beany Springa możemy autowiringować poprzez:
 
 
 ## FINAL/-LY/-IZE
-final - keyword, po inicjalizacji zmiennej/obiektu nie można w nim nic zmieniać
+-  final - keyword, po inicjalizacji zmiennej/obiektu nie można w nim nic zmieniać
 
-finally - działa z try-catchem, oznacza blok kodu, któy zawsze się wykona
+- finally - działa z try-catchem, oznacza blok kodu, któy zawsze się wykona
 
-finalize - metoda klasy Object, wywoływana tylko i wyłącznie raz - przez usunięciem z pamięci przez GB
+- finalize - metoda klasy Object, wywoływana tylko i wyłącznie raz - przez usunięciem z pamięci przez GB
 
 
 ## PROBLEM N+1
@@ -424,7 +428,8 @@ Problem polegający na wysłaniu n+1 małych zapytań do bazy o dane z powiązan
 Przykład:
 
 Mamy encje User i Message, przy czym Message ma 1 autora, 1 user może mieć wiele message'y. Wrzucamy nad polem author @ManyToOne z typem fetchowania LAZY - przez to powstaje problem N+1. Pobieramy listę wszystkich wiadomości i robiąc getAuthor() za każdym razem uderzamy do bazy danych.
-Rozwiązanie - EAGER jest zbyt obciążąjący, więc stosuję się:
+
+Rozwiązanie - EAGER jest zbyt obciążąjący przy dużej ilości danych, daltego też stosuje się:
 
 1. W JPA *EntityGraph*
 2. W JPQL *LEFT JOIN FETCH*
@@ -442,9 +447,6 @@ Collections.synchronized  - List/Map/Set
 
 TODO
 
-
-## Kiedy baza nie używa indeksu, mimo, że jest poprawnie założony?
-Kiedy jest mało danych
 
 ## Jak dziala @transactional pod spodem
 
@@ -473,13 +475,21 @@ Thrown when a thread is waiting, sleeping, or otherwise occupied, and the thread
 https://javastart.pl/baza-wiedzy/slownik/interfejs-funkcyjny
 
 
-## modyfikatory dostepu i czym rozni sie default od protected
-Default nie jest widoczny w subclassie, protected jest
-private - default - protected - public
+## MODYFIKATORY DOSTĘPU
+
+| |public|protected|default|private|
+|:----:|:----:|:----:|:----:|:----:|
+|class|yes|yes|yes|yes|
+|package|yes|yes|yes|no|
+|subclass|yes|yes|no|no|
+|global|yes|no|no|no|
+
+- Jaka jest rożnica pomiędzy default, a protected?
+- Default nie jest widoczny w subclassie, protected jest
 
 
-## czy overridujac klase mozemy zmienic jej modyfikator dostepu
-Tak, ale nie może być bardziej restrykcyjny
+- Czy overridując klasę możemy zmienić jej modyfikator dostępu?
+- Tak, ale nie może być bardziej restrykcyjny.
 
 
 ## roznica miedzy jpa vs springdata - DAO vs repo w sumie
