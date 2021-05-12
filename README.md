@@ -1,4 +1,4 @@
-# java-interview-questions-book
+# JAVA INTERVIEW QUESTIONS BOOK
 Repo zawiera zbiór pytań z rozmów kwalifikacyjnych Javy.
 Poszerzany będzie o nowe pytania i zagadnienia.
 
