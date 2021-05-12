@@ -1,4 +1,4 @@
--- TABLICA HASHUJACA -- 
+## TABLICA HASHUJACA
 Kolekcja przechowująca dane w strukturze klucz-wartość. Wykorzystuje hashCode i equals.
 Podobna do HashMapy ale ZSYNCHRONIZOWANA
 Nie zezwala na używanie null jako klucza i wartości
@@ -6,19 +6,19 @@ Do iteracji wykorzystuje enumerator
 Wolniejsze od hashmap
 
 
--- HASH CODE I EQUALS --
+## HASH CODE I EQUALS
 Equals powinna służyć do porównywania obiektów, w większości przypadków domyślna metoda nie wystarczy i powinno się ją nadpisywać. Equals powinna być zwrotna, symetryczna, przechodnia, spójna i powinna zwracać false przy porównaniu z wartością null.
 HashCode zwraca int, która służy do przyporządkowania danego obiektu do grupy - dzięki niej jesteśmy podzielić wszystkie możliwe instancje danej klasy na rozdzielne grupy. Zazwyczaj metodę nadpisuje się poprzez przemnożenie atrybutów klasy przez liczby pierwsze.
 Jeśli obiekty A i B są równe w equals() to powinny mieć takie same hashcode'y.
 
 
--- PODSTAWOWE ALGORYTMY --
+## PODSTAWOWE ALGORYTMY
 1. QuickSort - dzieli tablicę na 2 mniejsze, sortuje je osobno, a potem łączy ze sobą.
 2. BubbleSort - prosty i wolny - porównuje każdą parę po kolei ze sobą i zamienia je miejscami jeśli trzeba.
 3. InsertionSort - prosty i wolny - bierze element z nieposortowanej sekcji i wstawia go w odpowienim miejscu. 
 
 
--- GARBAGE COLLECTOR -
+## GARBAGE COLLECTOR
 (https://bulldogjob.pl/news/404-jvm-garbage-collector-wprowadzenie)
 Program w JVM, który usuwa z pamięci nieużywane obiekty. Dzięki niemu memory heap nie jest zapełniany tak szybko.
 Pamięć dzieli się na Young generation (YG) i Old Generation (OG):
@@ -26,22 +26,22 @@ YG obszar, do którego trafiają nowe obiekty, składa się z 3 stref - eden, su
 Obiekty ze stref s1 i s2 jeśli są w nich wystarczająco długo trafiają do OG. Obszar ten jest znacznie większy od YG i dlatego GC działa tu rzadziej.
 
 
--- TYPY POLIMORFIZMU --
+## TYPY POLIMORFIZMU
 1. Statyczny polimorfizm - compile time
 np. przeciążanie method (overloading)
 2. Dynamiczny polimorfizm - runtime 
 np. nadpisywanie metod
 
 
--- BLOKI STATYCZNE --
+## BLOKI STATYCZNE
 Oznaczane i wywoływeane przy pomocy słówka static{...}. Kod zawarty w bloku statycznym wykonuje się tylko raz - przy załadowaniu danej klasy do pamięci.
 
 
--- TRY WITH RESOURCES --
+## TRY WITH RESOURCES
 Specjalna składnia try-catch-finally, która pozwala na uniknięcie pisania zbędnego kodu. Wykorzystuje się go zazwyczaj przy wszelkiej maści streamach/scannerach - dzięki niemu po wykonaniu kodu taki stream/scanner jest zamykany automatycznie, dzięki czemu programista nie musi robić tego ręcznie w bloku finally.
 
 
--- WIELOWĄTKOWOŚĆ - JAK JA OSIĄGNĄĆ W JAVA --
+## WIELOWĄTKOWOŚĆ - JAK JA OSIĄGNĄĆ W JAVA
 W Javie z wątkami możemy pracować głównie na 2 sposoby: dziedzicząc po klasie Thread lub rozszerzając interfejs Runnable. Zarówno w jednym jak i drugim przypadku musimy nadpisać metodę run(). 
 Cykl życia wątków w Javie:
 - NEW - nowy nieuruchomiony wątek
@@ -56,16 +56,16 @@ Z wątkami dobrze działa immutable kod, ponieważ w immutable zmiennych/obiekta
 Operacja tworzenia wątku jest bardzo kosztowna, dlatego też, gdy potrzebujemy dużej liczby predefiniowanych wątków do krótkich zadań warto skorzystać z ThreadPoola (np. ExecutorService).
 
 
--- PODZIAŁ EXCEPTIONOW --
+## PODZIAŁ EXCEPTIONOW
 1. Checked exception - jeśli w hierarchii dziedziczenia ma Exception i nie ma Runtime Exception, np IOException
 2. Unchecked excpetion - pozostałe, np IllegalArgumentException
 
 
--- ADNOTACJE --
+## ADNOTACJE
 ?? TODO
 
  
--- KOLEKCJE -- 
+## KOLEKCJE ## 
 Iterable		Map
 	|
 Collection
@@ -81,13 +81,13 @@ Map kolekcja zawiera zestaw kluczy i wartości - klucze są unikalne, wartości 
 - linkedhashmap - zapamiętuje kolejność dodawanai elementów, wykorzystuje tablicę mieszaną i listę wiązaną.
 Hashmapy wpisują elementy do tzw. bucketów - wcześniej były to po prostu linkedlisty map. Obecnie jest to albo struktura drzewa elementów albo linked lista.
  
--- MOCKITO --
+## MOCKITO
 Pozwala na wstrzykiwanie mockowanych instancji np serwisów. Nie są tworzone realne obiekty, tylko mocki. Tworzy się je za pomocą adnotacji @Mock.
 @Spy - pozwala na tworzenie prawdziwych obiektów i pomaga w używaniu normalnych metod obiektu jednocześnie pozwalając na śledzenie każdej interakcji, jak w przypadku mocków
 @Captor - tworzy ArgumentCaptora, który używany jest do przechwytywania wartości argumentów metod do assercji.
 
  
--- WZORCE PROJEKTOWE --
+## WZORCE PROJEKTOWE
 1. Kreacyjne
 	Factory - udostępnia interfejs do tworzenia obiektów w ramach klasy bazowej, ale pozwala podklasom zmieniać typ tworzonych obiektów
 	Builder - pozwala na budowanie obiektów etapami, nie używając rozbudowanych konstruktorów
@@ -105,18 +105,18 @@ Pozwala na wstrzykiwanie mockowanych instancji np serwisów. Nie są tworzone re
 	Strategy - wydzielenie abstrakcji, która polega na wyborze odpowiedniego algorytmu z rodziny algorytmów odpowiedzialnych za podobną funkcjonalność
 
  
--- SPRING BOOT --
+## SPRING BOOT
 Ma wbudowaną bazę danych (h2) oraz wbudowany serwer aplikacji (tomcat/jetty).
 Nie wymaga plików konfiguracyjnych .xml w przeciwieństwie do Springa, działa głównie na adnotacjach
 Łatwa konfiguracja projektu poprzez spring initialzr
 
  
--- ADNOTACJE DO TESTÓW W SPRING BOOCIE --
+## ADNOTACJE DO TESTÓW W SPRING BOOCIE
 @springboottest - informuje SB, że ma szukać klasy z główną konfiguracją (@SpringBootApplication) i użyć jej do startu application context
 @AutoConfigureMockMvc - pozwala na testowanie requestów HTTP bez konieczności startowania serwera. Korzysta się z tego poprzez tworzenie instancji MockMvc, która wymaga użycia ww adnotacji nad klasą testu.
 
 
--- HIBERNATE -- 
+## HIBERNATE ## 
 Hibernate jest najczęściej stosowanym ORMem w Javie. Służy za operacje związane z bazą danych oraz mapowanie relacyjno - obiektowe.
 W Springu możliwe są transakcje, które oznaczane są adnotacją @Transactional. Polegają one na grupowym wprowadzaniu zmian w bazie danych, przy czym podzielone jest to na 3 części: rozpoczęcie, wykonanie operacji oraz jej zakończenie. Po zakończeniu operacji zmiany zostają albo zatwierdzone albo zostają wycofane (rollback). W transakcji możemy również ustawić timeout (w adnotacji @Transactional lub dla JDBC setQueryLimit). 
 Możemy również konfigurować, które klasy wyjątków będą powodować rollback.
@@ -139,18 +139,18 @@ Obiekty w Hibernate mogą posiadać 3 stany:
 - detached - obiekt usunięty z sesji. Posiada ID ale nie można wykonywać na nim żadnych operacji bazodanowych - w przypadku zmian w takim obiekcie nie zostaną one zapisane w bazie danych.
 
 
--- SQL --
+## SQL
 Indeksy to obiekty bazodane, które nie są zależne od tabeli. Pozwalają uzyskać szybszy dostęp do danych - przechowują wartości kolumn, na które są nakładane oraz ROWID wiersza.
 view - wirtualne widoki które za każdym razem wykonują zapytanie
 materialized view - zapisane na dysku i aktualizowane co jakiś czas, dostęp nie wymaga wykonania zapytania
 
 
--- CQRS -- 
+## CQRS ## 
 Command Query Responsibility Segregation powiązany jest z Event Sourcingiem.
 ES pozwala na odtwarzanie aktualnego stanu aplikacji na podstawie odkładanych w Event Storze eventów. CQRS polega na segregowaniu polecen i zapytan w architekturze. Zapytania zwracają wyniki nie zmieniając obserwowanego stanu, polecenia zmieniają stan nie zwracając wartości.
 
 
--- RABBITMQ --
+## RABBITMQ
 W skrócie kolejka, składa się z:
 - publishera (np apka)
 - exchange
@@ -164,14 +164,14 @@ W skrócie kolejka, składa się z:
 - headers - przydzielają kolejki na podstawie atrybutów message headera
 
 
--- CI/CD --
+## CI/CD
 CI - continous integration
 Wprowadzane zmiany w kodzie są okresowo sprawdzane w repozytorium wersji kodu. Celem CI jest stworzenie spójnego i zautomatyzowanego środowiska budowania i testowania aplikacji.
 CD - continous delivery
 Polega na automatyzacji wdrażania aplikacji i wprowadzanych zmian w kodzie oraz dostarczania ich do odpowiednich środowisk (developerskie, testowe, produkcyjne)
 
 
--- HTTP --
+## HTTP
 Kody i przykłady:
 - informacyjne 100-199
 	100 - wszystko spoko i należy kontynuować
@@ -203,14 +203,14 @@ Odpowiedniki CRUD:
 - Update/modify
  
 
--- GIT -- 
+## GIT ## 
 1. Merge vs Rebase
 Merge tworzy dodatkowe rozgałęzienie oraz commity na głównym branchu po marge'u
 Rebase "wypłaszcza" drzewo, tworzy liniową strukturę, ale modyfikuje historie zmian
 2. Cherry pick - pozwala dołączać wybrane commity do obecnego HEADa
 
 
--- ONION ARCHITECTURE --
+## ONION ARCHITECTURE
 Architektura tworzenia systemu, która gwarantuje:
 - niezależność od frameworka / bibliotek 
 - testowalność z wykluczeniem bazy danych i UI
@@ -225,12 +225,12 @@ Składa się z 4 warstw (licząc od zewnętrznej):
 Dzięki OA zapewniona jest IoC
 
 
--- IoC i DI --
+## IoC i DI
 Inversion of Control, czyli odwrócenie sterowania
 DI - dependency injection
 
 
--- SOLID --
+## SOLID
 - Single Responsobility - klasa powinna mieć wyłącznie jeden powód do zmiany -> klasa powinna mieć jeden główny cel
 - Open/Closed - otwarty na rozszerzenia, zamknięty na modyfikacje. Dotyczy używania kompozycji, dziedziczenia i modyfikatorów dostępu
 - Liskov Substitution - kod powinien pracować poprawnie z klasą, jak i jej podklasami
@@ -238,7 +238,7 @@ DI - dependency injection
 - Dependency Inversion - wysokopoziomowe klasy nie powinny zależeć od niskopziomowych detali. Powinno to być odwrócone poprzez wprowadzenie dodatkowych warstw abstrakcji.
 
 
--- ACID --
+## ACID
 Związane z bazami danych
 - Atomicity - niepodzielność; każda transakcja wykonywana jest albo w całości albo wcale 
 - Consistency - spójność; integralność danych - zapewnia spójność danych 
@@ -246,7 +246,7 @@ Związane z bazami danych
 - Durability - trwałość; w przypadku awarii jesteśmy w stanie odtworzyć
 
 
--- REST --
+## REST
 Główne sposoby autentykacji:
 1. HTTP schematy
 	basic auth - nie zalecana, wymaga loginu i hasła, kodowane przy użyciu Base64
@@ -257,26 +257,26 @@ Główne sposoby autentykacji:
 	Najczęściej do autentykacji osób, które logują się do systemu. Wymaga access tokenu lub/i refresh tokenu. Access token może wygasnąć. 
 
 
--- JWT --
+## JWT
 JSON Web Token, sposób autentykacji API. Składa się z:
 - header - informacje na temat algorytmu szyfrowania oraz typie tokena
 - payload - dowolny ładunek, najczęściej info na temat roli i praw usera / długość zycia tokena
 - verify - podpis cyfrowy, stanowi sumę kontrolną
 
 
--- PIRAMIDA TESTÓW --
+## PIRAMIDA TESTÓW
 Od dołu:
 1. Jednostkowe - testują małe fragmentu kodu, np pojedyncze klasy czy metody
 2. Integracyjne - testują interfejsy i interakcje, np między modułami tworzonego systemu
 3. Systemowe/e2e - na docelowym środowisku produkcyjnym. Mają na celu przejście przez wszystkie warstwy aplikacji.
 
 
--- SWAGGER --
+## SWAGGER
 Pozwala wygenerować dokumentację API na podstawie kodu.
 Przyspiesza tworzenie dokumentacji oraz prace w różnych zespołach pracujących nad jednym produktem.
 
 
--- JDK --
+## JDK
 Java development kit, zawiera:
 - JRE 
 	class loader - odnajduje binarne reprezentacje klasy w classpathie aplikacji, po czym wczytuje ją do odpowiedniego segmentu pamięci
@@ -288,7 +288,7 @@ Java development kit, zawiera:
 	GC - było wyżej
 	
 	
--- ZAKRESY BEANOW --
+## ZAKRESY BEANOW
 1. Singleton - istnieje tylko jedna instancja beana
 2. Prototype - przy każdym wywołaniu beana dostajemy jego nową instancję
 3. Request - cykl życia beana powiązany z pojedynczym żądaniem http
@@ -296,7 +296,7 @@ Java development kit, zawiera:
 5. Global session - jak wyżej ale globalnemu zakresowi sesji http
 
 
--- RODZAJE AUTOWIRING --
+## RODZAJE AUTOWIRING
 Beany Springa możemy autowiringować poprzez:
 1. Typ danych - jeśli typ danych peirwszego beana jest zgodny z typem danych pola drugiego beana, to pierwszego podpinamy pod pole drugiego
 2. Nazwę - bierze pod uwagę nazwę beana i nazwę pola w drugim beanie, a jeśli się zgada to Spring automatycznie podpina go pod to pole
@@ -304,13 +304,13 @@ Beany Springa możemy autowiringować poprzez:
 4. Autodetekcję - jeśli do beana dorzucimy konstruktor to próbuje przez (3), jeśli nie występuje w beanie kontruktor to (1)
 
 
--- FINAL/-LY/-IZE --
+## FINAL/-LY/-IZE
 final - keyword, po inicjalizacji zmiennej/obiektu nie można w nim nic zmieniać
 finally - działa z try-catchem, oznacza blok kodu, któy zawsze się wykona
 finalize - metoda klasy Object, wywoływana tylko i wyłącznie raz - przez usunięciem z pamięci przez GB
 
 
--- PROBLEM N+1 --
+## PROBLEM N+1
 Problem polegający na wysłaniu n+1 małych zapytań do bazy o dane z powiązanych tabel, zamiast wysłania jednego zapytania, który pobierze wszystkie dane.
 Przykład:
 Mamy encje User i Message, przy czym Message ma 1 autora, 1 user może mieć wiele message'y. Wrzucamy nad polem author @ManyToOne z typem fetchowania LAZY - przez to powstaje problem N+1. Pobieramy listę wszystkich wiadomości i robiąc getAuthor() za każdym razem uderzamy do bazy danych.
@@ -321,70 +321,70 @@ Rozwiązanie - EAGER jest zbyt obciążąjący, więc:
 
 
 DODATKOWO:
--- cache w rescie - czyli cachecontrol
+## cache w rescie - czyli cachecontrol
 
 
--- synchronized kolekcje java
+## synchronized kolekcje java
 Collections.synchronized  - List/Map/Set
 
 
--- threadlocal
+## threadlocal
 
 
--- kiedy baza nie uzywa indeksu mimo ze jest poprawnie zalozony
+## kiedy baza nie uzywa indeksu mimo ze jest poprawnie zalozony
 Kiedy jest mało danych
 
 
 --jak dziala @transactional pod spodem
 
 
--- interrupted exception w javie
+## interrupted exception w javie
 Thrown when a thread is waiting, sleeping, or otherwise occupied, and the thread is interrupted, either before or during the activity
 
 
--- plusy minusy mikroserwisow
+## plusy minusy mikroserwisow
 
 
--- oauth 2
+## oauth 2
 
 
---  pull vs fetch w gicie
+##  pull vs fetch w gicie
 pull robi merge, fetch nie i aktualizuje tylko lokalne repo .git
 
 
--- tdd 
+## tdd 
 
 
--- jak sie nazywa polaczenie commitow w jeden 
+## jak sie nazywa polaczenie commitow w jeden 
 squosh czy jak to sie pisze
 
 
--- roznica miedzy having a where
+## roznica miedzy having a where
 Having przy zagregowanych danych (np sumy) + używa się go z GRUOP BY
 
 
--- typy generyczne
+## typy generyczne
 
 
--- interfejs funkcyjny
+## interfejs funkcyjny
 https://javastart.pl/baza-wiedzy/slownik/interfejs-funkcyjny
 
 
--- modyfikatory dostepu i czym rozni sie default od protected
+## modyfikatory dostepu i czym rozni sie default od protected
 Default nie jest widoczny w subclassie, protected jest
 private - default - protected - public
 
 
--- czy overridujac klase mozemy zmienic jej modyfikator dostepu
+## czy overridujac klase mozemy zmienic jej modyfikator dostepu
 Tak, ale nie może być bardziej restrykcyjny
 
 
--- roznica miedzy jpa vs springdata - DAO vs repo w sumie
+## roznica miedzy jpa vs springdata - DAO vs repo w sumie
 DAO (Data Access Object) jak Repository dostarczają interfejs umożliwiający komunikacje ze źródłem danych. Rozwiązania takie nazywane są Data Access Layer (DAL). Przy czym DAO jest rozwiązaniem bardziej elastycznym, natomiast Reposiotry nowszym i preferowanym do wykorzystania przez twórców wielu frameworków
 
 
--- sposób pisania własnych zapytań w SpringBoocie - czyli Query i NativeQuery
+## sposób pisania własnych zapytań w SpringBoocie - czyli Query i NativeQuery
 Query - JPQL/HQL    ;   NativeQuery - SQL
 
 
--- lockowanie - optimistic pesimistic
+## lockowanie - optimistic pesimistic
